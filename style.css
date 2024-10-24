@@ -5,6 +5,11 @@ body {
     background-color: #ffc7b6;
 }
 
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
 #header {
     display: flex;
     justify-content: space-between;
@@ -46,4 +51,39 @@ body {
     width: 100%;
     max-width: 4em;
     height: auto;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    max-width: 30em;
+    height: 30em;
+    background-color: #fed4c7;
+    border: 4px solid black;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #533e38;
+}
+
+.calculator__screen, .calculator__btns {
+    display: flex;
+    justify-content: center;
+}
+
+
+.calculator__screen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 6em;
+    background-color: #ffc7b6;
+    border-bottom: 4px solid black;
+    border-radius: 10px;
+    align-items: last baseline;
+}
+
+.calculator__screen__result {
+    padding: 0.8em;
+    font-size: 3.5em;
 }

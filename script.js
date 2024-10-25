@@ -3,8 +3,8 @@ const calculatorButtons = document.querySelector(".calculator__btns");
 const calculatorResult = document.querySelector("#calculator__screen__result");
 const allButtons = ["CLEAR", "%", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="];
 const allFunctions = ["%", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
-const clearFunction = ["CLEAR"];
 const allOperators = ["%", "=", "x", "-", "÷", "+", "±"];
+const clearFunction = ["CLEAR"];
 let userSelected = [];
 let userNumsSelected = [];
 
@@ -17,13 +17,13 @@ const makeCalculator = () => {
         if (allFunctions.includes(element)) { 
                                                 singleButton.setAttribute("style", 
                                                                           "background-color: salmon")
-                                            }
+                                            }  
         if (clearFunction.includes(element)) { 
                                                 singleButton.setAttribute("style", 
                                                                           "background-color: #000000")
                                                 singleButton.style.color = "white";
                                                 singleButton.classList.add("calculator__btn__clear");
-                                            }                                            
+                                            }                                             
         singleButton.addEventListener("click", () => getButtonInput(element.toString()));
         calculatorButtons.appendChild(singleButton);
     });

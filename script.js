@@ -1,63 +1,93 @@
 const calculator = document.querySelector("calculator");
-const calculatorButtons = document.querySelector(".calculator__btns");
-const calculatorResult = document.querySelector("#calculator__screen__result");
 const allButtons = ["CLEAR", "%", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="];
-const allFunctions = ["%", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
-const allOperators = ["%", "=", "x", "-", "÷", "+", "±"];
-const clearFunction = ["CLEAR"];
-let userSelected = [];
-let userNumsSelected = [];
+const allOps = ["%", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
+let userNums = [];
+let userNumsLen = 0;
+let result = 0;
+let userOps = [];
+let calculationOver = false;
 
-const makeCalculator = () => {
-    allButtons.forEach((element) => {
-        const singleButton = document.createElement("button");
-        singleButton.textContent = element;
-        singleButton.style.fontSize = "2em";
-        singleButton.classList.add("calculator__btns__all");
-        if (allFunctions.includes(element)) { 
-                                                singleButton.setAttribute("style", 
-                                                                          "background-color: salmon")
-                                            }  
-        if (clearFunction.includes(element)) { 
-                                                singleButton.setAttribute("style", 
-                                                                          "background-color: #000000")
-                                                singleButton.style.color = "white";
-                                                singleButton.classList.add("calculator__btn__clear");
-                                            }                                             
-        singleButton.addEventListener("click", () => getButtonInput(element.toString()));
-        calculatorButtons.appendChild(singleButton);
-    });
-}
-
-const getButtonInput = (element) => {
-    if (Number(element) >= 0 ){
-        calculatorResult.value += element;
-        userSelected.push(element);
-        userNumsSelected.push(element);
-    }
-    else if (element === "+" ||
-             element === "-" ||
-             element === "x" ||
-             element === "÷" ||
-             element === "%" ||
-             element === "±"){
-        if (element !== "%" &&
-            element !== "±") {
-                userSelected.push(element);
-                calculatorResult.value = "";
+const calculatorBtns = document.querySelectorAll(".calculator__btns__all");
+const calculatorScreen = document.querySelector("input");
+const calculatorScreenTrack = document.querySelector(".calculator__screen__track")
+calculatorBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        if (calculationOver === true){
+            calculatorScreen.value = "";
+            calculatorScreenTrack.textContent = "0";
+            userNums.splice(0);
+            userOps = [];
+            calculationOver = false;
+        }
+        if (button.value === "CLEAR"){
+            calculatorScreen.value = "";
+            userNums.splice(0);
+            userOps = [];
+            calculatorScreenTrack.textContent = "0";
+        }
+        if (button.value >= 0 ||
+            button.value === "."
+        ){
+            calculatorScreen.value += button.value
+        }
+        if (button.value === "+" ||
+            button.value === "-" ||
+            button.value === "÷" ||
+            button.value === "x"){
+                userNums.push(Number(calculatorScreen.value));
+                calculatorScreen.value = "";
+                userNumsLen = userNums.length;
+                userOps = button.value;
+                if (userNumsLen == 1){
+                calculatorScreenTrack.textContent = userNums;
+                }
+                if (userNumsLen > 1){
+                    if (button.value === "+"){
+                        const addition = userNums.reduce((accu, curr) => accu + curr);
+                        result = addition;
+                        userOps = button.value;
+                        calculatorScreenTrack.textContent = result;
+                        userNums.splice(0);
+                        userNums.push(addition);
+                        userNumsLen = userNums.length;
+                    }
+                    if (button.value === "-"){
+                        const subtract = userNums.reduce((accu, curr) => accu - curr);
+                        result = subtract;
+                        userOps = button.value;
+                        calculatorScreenTrack.textContent = result;
+                        userNums.splice(0);
+                        userNums.push(subtract);
+                        userNumsLen = userNums.length;
+                    }
+                }
             }
-             }
-    else if (element === "CLEAR"){
-        calculatorResult.value = "";
-        userSelected.splice(0, userSelected.length);
+        if (button.value === "="){
+            userNums.push(Number(calculatorScreen.value));
+            calculatorScreen.value = "";
+            calculatorScreenTrack.textContent = "0";
+            userNumsLen = userNums.length;
+            if (userOps == "+"){
+                addition = userNums.reduce((accu, curr) => accu + curr, 0);
+                result = addition;
+                userOps = button.value;
+                userNums.splice(0);
+                userNums.push(addition);
+                userNumsLen = userNums.length;
+                calculatorScreen.value = result;
+                calculationOver = true;
             }
-    else if (element === "."){
-        userSelected.push(element);
-        calculatorResult.value += element;
-    }
-    else if (element === "="){
-        getCalculation();
-    }
-}
+                if (userOps == "-"){
+                subtract = userNums.reduce((accu, curr) => accu - curr);
+                result = subtract;
+                userOps = button.value;
+                userNums.splice(0);
+                userNums.push(subtract);
+                userNumsLen = userNums.length;
+                calculatorScreen.value = result;
+                calculationOver = true;
+            }
+        }
+    })
+})
 
-makeCalculator();

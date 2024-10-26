@@ -4,7 +4,7 @@ const allOps = ["%", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
 let userNums = [];
 let userNumsLen = 0;
 let result = 0;
-let userOps = [];
+let userOps = 0;
 let calculationOver = false;
 
 const calculatorBtns = document.querySelectorAll(".calculator__btns__all");
@@ -37,30 +37,30 @@ calculatorBtns.forEach(button => {
                 userNums.push(Number(calculatorScreen.value));
                 calculatorScreen.value = "";
                 userNumsLen = userNums.length;
-                userOps = button.value;
                 if (userNumsLen == 1){
-                calculatorScreenTrack.textContent = userNums;
-                }
-                if (userNumsLen > 1){
-                    if (button.value === "+"){
-                        const addition = userNums.reduce((accu, curr) => accu + curr);
-                        result = addition;
-                        userOps = button.value;
-                        calculatorScreenTrack.textContent = result;
-                        userNums.splice(0);
-                        userNums.push(addition);
-                        userNumsLen = userNums.length;
+                    calculatorScreenTrack.textContent = userNums;
                     }
-                    if (button.value === "-"){
-                        const subtract = userNums.reduce((accu, curr) => accu - curr);
-                        result = subtract;
-                        userOps = button.value;
-                        calculatorScreenTrack.textContent = result;
-                        userNums.splice(0);
-                        userNums.push(subtract);
-                        userNumsLen = userNums.length;
-                    }
+                if (userOps == 0){
+                    userOps = button.value;
                 }
+                else if (userOps == "+"){
+                    const addition = userNums.reduce((accu, curr) => accu + curr);
+                    result = addition;
+                    userOps = button.value;
+                    calculatorScreenTrack.textContent = result;
+                    userNums.splice(0);
+                    userNums.push(addition);
+                    userNumsLen = userNums.length;
+                    }
+                else if (userOps == "-"){
+                    const subtract = userNums.reduce((accu, curr) => accu - curr);
+                    result = subtract;
+                    userOps = button.value;
+                    calculatorScreenTrack.textContent = result;
+                    userNums.splice(0);
+                    userNums.push(subtract);
+                    userNumsLen = userNums.length;
+                    }
             }
         if (button.value === "="){
             userNums.push(Number(calculatorScreen.value));

@@ -1,15 +1,15 @@
 const calculator = document.querySelector("calculator");
+const calculatorBtns = document.querySelectorAll(".calculator__btns__all");
+const calculatorScreen = document.querySelector("input");
+const calculatorScreenTrack = document.querySelector(".calculator__screen__track")
+
 const allButtons = ["CLEAR", "√", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="];
-const allOps = ["√", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
 let userNums = [];
 let userNumsLen = 0;
 let result = 0;
 let userOps = 0;
 let calculationOver = false;
 
-const calculatorBtns = document.querySelectorAll(".calculator__btns__all");
-const calculatorScreen = document.querySelector("input");
-const calculatorScreenTrack = document.querySelector(".calculator__screen__track")
 calculatorBtns.forEach(button => {
     button.addEventListener("click", () => {
         if (calculationOver === true){
@@ -29,19 +29,16 @@ calculatorBtns.forEach(button => {
             button.value === "."
         ){
             calculatorScreen.value += button.value
-            console.log(calculatorScreen.value);
         }
         if (button.value === "±"){
             let numsTemp = calculatorScreen.value;
             let posMin = (numsTemp - (numsTemp * 2));
             calculatorScreen.value = posMin;
-            userNums.push(Number(calculatorScreen.value));
         }
         if (button.value === "√"){
             numsTemp = calculatorScreen.value;
             let sqrt = (numsTemp * numsTemp);
             calculatorScreen.value = sqrt;
-            userNums.push(Number(calculatorScreen.value));
         }
         if (button.value === "+" ||
             button.value === "-" ||
@@ -56,88 +53,46 @@ calculatorBtns.forEach(button => {
                 if (userOps == 0){
                     userOps = button.value;
                 }
-                else if (userOps == "+"){
-                    const addition = userNums.reduce((accu, curr) => accu + curr).toFixed(3);
-                    result = addition;
-                    userOps = button.value;
-                    calculatorScreenTrack.textContent = result;
-                    userNums.splice(0);
-                    userNums.push(addition);
-                    userNumsLen = userNums.length;
-                    }
-                else if (userOps == "-"){
-                    const subtract = userNums.reduce((accu, curr) => accu - curr).toFixed(3);
-                    result = subtract;
-                    userOps = button.value;
-                    calculatorScreenTrack.textContent = result;
-                    userNums.splice(0);
-                    userNums.push(subtract);
-                    userNumsLen = userNums.length;
-                    }
-                else if (userOps == "x"){
-                    const multiply = userNums.reduce((accu, curr) => accu * curr).toFixed(3);
-                    result = multiply;
-                    userOps = button.value;
-                    calculatorScreenTrack.textContent = result;
-                    userNums.splice(0);
-                    userNums.push(multiply);
-                    userNumsLen = userNums.length;
-                }
-                else if (userOps == "÷"){
-                    const divide = userNums.reduce((accu, curr) => accu / curr).toFixed(3);
-                    result = divide;
-                    userOps = button.value;
-                    calculatorScreenTrack.textContent = result;
-                    userNums.splice(0);
-                    userNums.push(divide);
-                    userNumsLen = userNums.length;
-                }
+                let calculate = operate();
+                result = calculate;
+                userOps = button.value;
+                calculatorScreenTrack.textContent = result;
+                userNums.splice(0);
+                userNums.push(calculate);
+                userNumsLen = userNums.length;
             }
         if (button.value === "="){
             userNums.push(Number(calculatorScreen.value));
             calculatorScreen.value = "";
             calculatorScreenTrack.textContent = "0";
             userNumsLen = userNums.length;
-            if (userOps == "+"){
-                addition = userNums.reduce((accu, curr) => accu + curr, 0).toFixed(3);
-                result = addition;
-                userOps = button.value;
-                userNums.splice(0);
-                userNums.push(addition);
-                userNumsLen = userNums.length;
-                calculatorScreen.value = result;
-                calculationOver = true;
-            }
-            if (userOps == "-"){
-                subtract = userNums.reduce((accu, curr) => accu - curr).toFixed(3);
-                result = subtract;
-                userOps = button.value;
-                userNums.splice(0);
-                userNums.push(subtract);
-                userNumsLen = userNums.length;
-                calculatorScreen.value = result;
-                calculationOver = true;
-            }
-            if (userOps == "x"){
-                multiply = userNums.reduce((accu, curr) => accu * curr).toFixed(3);
-                result = multiply;
-                userOps = button.value;
-                userNums.splice(0);
-                userNums.push(multiply);
-                userNumsLen = userNums.length;
-                calculatorScreen.value = result;
-                calculationOver = true;
-            }
-            if (userOps == "÷"){
-                divide = userNums.reduce((accu, curr) => accu / curr).toFixed(3);
-                result = divide;
-                userOps = button.value;
-                userNums.splice(0);
-                userNums.push(divide);
-                userNumsLen = userNums.length;
-                calculatorScreen.value = result;
-                calculationOver = true;
-            }
+            let calculateFinal = operate();
+            result = calculateFinal;
+            userOps = button.value;
+            userNums.splice(0);
+            userNums.push(calculateFinal);
+            userNumsLen = userNums.length;
+            calculatorScreen.value = result;
+            calculationOver = true;
         }
     })
 })
+
+function operate(){
+    if (userOps == "+"){
+        const addition = userNums.reduce((accu, curr) => accu + curr);
+        return addition;
+    }
+    else if (userOps == "-"){
+        const subtract = userNums.reduce((accu, curr) => accu - curr);
+        return subtract;
+    }
+    else if (userOps == "x"){
+        const multiply = userNums.reduce((accu, curr) => accu * curr);
+        return multiply;
+    }
+    else if (userOps == "÷"){
+        const divide = userNums.reduce((accu, curr) => accu / curr);
+        return divide;
+    }
+}

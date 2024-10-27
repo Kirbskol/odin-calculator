@@ -84,6 +84,7 @@ body {
 }
 
 #calculator__screen__result {
+    outline: none;
     font-family: "Aldrich", sans-serif;
     font-weight: 400;
     color: black;

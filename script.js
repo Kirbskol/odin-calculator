@@ -35,11 +35,13 @@ calculatorBtns.forEach(button => {
             let numsTemp = calculatorScreen.value;
             let posMin = (numsTemp - (numsTemp * 2));
             calculatorScreen.value = posMin;
+            userNums.push(Number(calculatorScreen.value));
         }
         if (button.value === "√"){
             numsTemp = calculatorScreen.value;
             let sqrt = (numsTemp * numsTemp);
             calculatorScreen.value = sqrt;
+            userNums.push(Number(calculatorScreen.value));
         }
         if (button.value === "+" ||
             button.value === "-" ||
@@ -55,7 +57,7 @@ calculatorBtns.forEach(button => {
                     userOps = button.value;
                 }
                 else if (userOps == "+"){
-                    const addition = userNums.reduce((accu, curr) => accu + curr);
+                    const addition = userNums.reduce((accu, curr) => accu + curr).toFixed(3);
                     result = addition;
                     userOps = button.value;
                     calculatorScreenTrack.textContent = result;
@@ -64,7 +66,7 @@ calculatorBtns.forEach(button => {
                     userNumsLen = userNums.length;
                     }
                 else if (userOps == "-"){
-                    const subtract = userNums.reduce((accu, curr) => accu - curr);
+                    const subtract = userNums.reduce((accu, curr) => accu - curr).toFixed(3);
                     result = subtract;
                     userOps = button.value;
                     calculatorScreenTrack.textContent = result;
@@ -73,7 +75,7 @@ calculatorBtns.forEach(button => {
                     userNumsLen = userNums.length;
                     }
                 else if (userOps == "x"){
-                    const multiply = userNums.reduce((accu, curr) => accu * curr);
+                    const multiply = userNums.reduce((accu, curr) => accu * curr).toFixed(3);
                     result = multiply;
                     userOps = button.value;
                     calculatorScreenTrack.textContent = result;
@@ -82,7 +84,7 @@ calculatorBtns.forEach(button => {
                     userNumsLen = userNums.length;
                 }
                 else if (userOps == "÷"){
-                    const divide = userNums.reduce((accu, curr) => accu / curr);
+                    const divide = userNums.reduce((accu, curr) => accu / curr).toFixed(3);
                     result = divide;
                     userOps = button.value;
                     calculatorScreenTrack.textContent = result;
@@ -97,7 +99,7 @@ calculatorBtns.forEach(button => {
             calculatorScreenTrack.textContent = "0";
             userNumsLen = userNums.length;
             if (userOps == "+"){
-                addition = userNums.reduce((accu, curr) => accu + curr, 0);
+                addition = userNums.reduce((accu, curr) => accu + curr, 0).toFixed(3);
                 result = addition;
                 userOps = button.value;
                 userNums.splice(0);
@@ -107,7 +109,7 @@ calculatorBtns.forEach(button => {
                 calculationOver = true;
             }
             if (userOps == "-"){
-                subtract = userNums.reduce((accu, curr) => accu - curr);
+                subtract = userNums.reduce((accu, curr) => accu - curr).toFixed(3);
                 result = subtract;
                 userOps = button.value;
                 userNums.splice(0);
@@ -117,7 +119,7 @@ calculatorBtns.forEach(button => {
                 calculationOver = true;
             }
             if (userOps == "x"){
-                multiply = userNums.reduce((accu, curr) => accu * curr);
+                multiply = userNums.reduce((accu, curr) => accu * curr).toFixed(3);
                 result = multiply;
                 userOps = button.value;
                 userNums.splice(0);
@@ -127,7 +129,7 @@ calculatorBtns.forEach(button => {
                 calculationOver = true;
             }
             if (userOps == "÷"){
-                divide = userNums.reduce((accu, curr) => accu / curr);
+                divide = userNums.reduce((accu, curr) => accu / curr).toFixed(3);
                 result = divide;
                 userOps = button.value;
                 userNums.splice(0);

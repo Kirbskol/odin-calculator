@@ -29,6 +29,12 @@ calculatorBtns.forEach(button => {
             button.value === "."
         ){
             calculatorScreen.value += button.value
+            console.log(calculatorScreen.value);
+        }
+        if (button.value === "±"){
+            let numsTemp = calculatorScreen.value;
+            let posMin = (numsTemp - (numsTemp * 2));
+            calculatorScreen.value = posMin;
         }
         if (button.value === "+" ||
             button.value === "-" ||
@@ -61,6 +67,24 @@ calculatorBtns.forEach(button => {
                     userNums.push(subtract);
                     userNumsLen = userNums.length;
                     }
+                else if (userOps == "x"){
+                    const multiply = userNums.reduce((accu, curr) => accu * curr);
+                    result = multiply;
+                    userOps = button.value;
+                    calculatorScreenTrack.textContent = result;
+                    userNums.splice(0);
+                    userNums.push(multiply);
+                    userNumsLen = userNums.length;
+                }
+                else if (userOps == "÷"){
+                    const divide = userNums.reduce((accu, curr) => accu / curr);
+                    result = divide;
+                    userOps = button.value;
+                    calculatorScreenTrack.textContent = result;
+                    userNums.splice(0);
+                    userNums.push(divide);
+                    userNumsLen = userNums.length;
+                }
             }
         if (button.value === "="){
             userNums.push(Number(calculatorScreen.value));
@@ -77,7 +101,7 @@ calculatorBtns.forEach(button => {
                 calculatorScreen.value = result;
                 calculationOver = true;
             }
-                if (userOps == "-"){
+            if (userOps == "-"){
                 subtract = userNums.reduce((accu, curr) => accu - curr);
                 result = subtract;
                 userOps = button.value;
@@ -87,7 +111,26 @@ calculatorBtns.forEach(button => {
                 calculatorScreen.value = result;
                 calculationOver = true;
             }
+            if (userOps == "x"){
+                multiply = userNums.reduce((accu, curr) => accu * curr);
+                result = multiply;
+                userOps = button.value;
+                userNums.splice(0);
+                userNums.push(multiply);
+                userNumsLen = userNums.length;
+                calculatorScreen.value = result;
+                calculationOver = true;
+            }
+            if (userOps == "÷"){
+                divide = userNums.reduce((accu, curr) => accu / curr);
+                result = divide;
+                userOps = button.value;
+                userNums.splice(0);
+                userNums.push(divide);
+                userNumsLen = userNums.length;
+                calculatorScreen.value = result;
+                calculationOver = true;
+            }
         }
     })
 })
-

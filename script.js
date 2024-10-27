@@ -37,7 +37,7 @@ calculatorBtns.forEach(button => {
         }
         if (button.value === "√"){
             numsTemp = calculatorScreen.value;
-            let sqrt = (numsTemp * numsTemp);
+            let sqrt = Number(Number(Math.sqrt(numsTemp)).toFixed(3));
             calculatorScreen.value = sqrt;
         }
         if (button.value === "+" ||

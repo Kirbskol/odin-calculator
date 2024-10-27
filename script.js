@@ -54,7 +54,7 @@ calculatorBtns.forEach(button => {
                     userOps = button.value;
                 }
                 let calculate = operate();
-                result = calculate;
+                result = calculate.toFixed(3);
                 userOps = button.value;
                 calculatorScreenTrack.textContent = result;
                 userNums.splice(0);
@@ -67,7 +67,7 @@ calculatorBtns.forEach(button => {
             calculatorScreenTrack.textContent = "0";
             userNumsLen = userNums.length;
             let calculateFinal = operate();
-            result = calculateFinal;
+            result = calculateFinal.toFixed(3);
             userOps = button.value;
             userNums.splice(0);
             userNums.push(calculateFinal);

@@ -1,6 +1,6 @@
 const calculator = document.querySelector("calculator");
-const allButtons = ["CLEAR", "%", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="];
-const allOps = ["%", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
+const allButtons = ["CLEAR", "√", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="];
+const allOps = ["√", ".", "=", "÷", "-", "x", "DEL", "±", "+"];
 let userNums = [];
 let userNumsLen = 0;
 let result = 0;
@@ -35,6 +35,11 @@ calculatorBtns.forEach(button => {
             let numsTemp = calculatorScreen.value;
             let posMin = (numsTemp - (numsTemp * 2));
             calculatorScreen.value = posMin;
+        }
+        if (button.value === "√"){
+            numsTemp = calculatorScreen.value;
+            let sqrt = (numsTemp * numsTemp);
+            calculatorScreen.value = sqrt;
         }
         if (button.value === "+" ||
             button.value === "-" ||
